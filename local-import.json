@@ -1,0 +1,243 @@
+{
+  "boards": [
+    {
+      "id": "452473be-bb21-4816-97dc-28364e12c740",
+      "title": "Tekken Notes",
+      "createdAt": "2025-07-13T14:36:56.319Z",
+      "lists": [
+        {
+          "id": "601ddc46-bf9e-48a7-9fde-4cde23df46c1",
+          "title": "Personal",
+          "cards": [
+            {
+              "id": "efe48e70-d37d-40dc-97d0-e4dbd7b9de1a",
+              "title": "Lee",
+              "description": "Lee PC Oki:\n\n- Dash up wait for kick up etc\n- dash D2 float\n\nLab Lee Low Parry Combo\n\nLab Neutral + FF2 > EX: Running 3,4 vs Feng Backsway back kenpo\n\n- Lab like df1 etc on hit to backsway\n\nlab quick chexking moves ie: feng df3 ob",
+              "createdAt": "2025-01-15T02:47:30.869Z",
+              "labels": [],
+              "checklist": [
+                {
+                  "id": "d3b46cc7-8c52-409f-ac07-cb46db5f45d1",
+                  "text": "DF4 to B4 - DF4 is -9",
+                  "completed": false
+                },
+                {
+                  "id": "77c2cb63-5a5b-41fe-8eca-14198c472e70",
+                  "text": "Opt for 1+2 over B4 up close in timing/footsie battles",
+                  "completed": false
+                },
+                {
+                  "id": "6aa6decc-5f70-4d27-8e5d-6a4eb314a2cb",
+                  "text": "dick jab oh",
+                  "completed": false
+                },
+                {
+                  "id": "a7dec03d-911a-45e6-a4c2-c81f671a1e64",
+                  "text": "f2,1 to PC",
+                  "completed": false
+                },
+                {
+                  "id": "120d8246-ba50-47c4-960b-bc61028347ec",
+                  "text": "B4 CH near wall > D2 > B2F > F2,1 > WS! > DF1 > F4,1 > T! > 3+4 HMS > U4 > UB3",
+                  "completed": false
+                },
+                {
+                  "id": "7ad7e45f-aee5-413f-a55f-448a57132a3d",
+                  "text": "D2 CH Confirms",
+                  "completed": false
+                },
+                {
+                  "id": "803b93f1-a146-40ce-b63d-f38db1bdc46e",
+                  "text": "lab breaks",
+                  "completed": false
+                },
+                {
+                  "id": "2f8cb0d2-5ee3-45f6-8c67-bd666489e562",
+                  "text": "okie after PC",
+                  "completed": false
+                },
+                {
+                  "id": "5f346a4c-74ab-4f30-a059-dee8cbb1079d",
+                  "text": "D3 on hit as floor hit just do FF3 or 1 dash to B4 or 1+2",
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "1d97820f-4ff1-4dfd-8b42-39fcf67ddfe5",
+              "title": "Zafina",
+              "description": "Lab:\n\nLab oB back dash timing > EX: 1+2,4 vs Ling no punish. Lab better options IE: DF1\n\nBDx2:\n\n- DB4\n- FF4\n- 1+2\n- D4 confirm CH launch",
+              "createdAt": "2025-01-15T03:10:45.497Z",
+              "labels": [],
+              "checklist": []
+            },
+            {
+              "id": "7ded5ec2-5d8d-4735-ad5a-2520ef6cb56f",
+              "title": "Drag",
+              "description": "Lab:\n\nMore QCF4 on ground\n\nB4 good keep out but if whiff, back dash or SS look for B4,3 or whiff",
+              "createdAt": "2025-01-15T03:24:28.122Z",
+              "labels": [],
+              "checklist": []
+            }
+          ]
+        },
+        {
+          "id": "7bbec726-fc44-481e-9d85-efb81a6df09a",
+          "title": "Lab",
+          "cards": [
+            {
+              "id": "f8097e3e-c621-4652-a53c-1c353d039dd7",
+              "title": "feng",
+              "description": "",
+              "createdAt": "2025-01-15T02:46:40.222Z",
+              "labels": [],
+              "checklist": [
+                {
+                  "id": "de3c14b9-df0a-4043-aef0-b470636c8120",
+                  "text": "shoulder",
+                  "completed": false
+                },
+                {
+                  "id": "480d78ae-b459-4f3e-988d-10f2d6f49096",
+                  "text": "df4, 1+2",
+                  "completed": false
+                },
+                {
+                  "id": "d231da13-17c0-4b71-9fc0-7e44041b92d1",
+                  "text": "3,3,4 cancel",
+                  "completed": false
+                },
+                {
+                  "id": "a508d6a9-7300-4c31-9f1c-a2782b06e0c3",
+                  "text": "db2,2, helicopter",
+                  "completed": false
+                },
+                {
+                  "id": "6fd28343-3932-40f7-ac05-6317651b3fac",
+                  "text": "wall wake up SS4 and the wall splat slap ss1+2",
+                  "completed": false
+                },
+                {
+                  "id": "b521655d-e1e3-42b3-8a75-72f5314d676b",
+                  "text": "b2,3,3 etc",
+                  "completed": false
+                },
+                {
+                  "id": "873ad95a-3a81-424b-9c82-d41e871cabc1",
+                  "text": "1+2 -13",
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "c65859c6-8dc7-4337-804f-3e763dc20732",
+              "title": "Ling",
+              "description": "",
+              "createdAt": "2025-01-15T03:12:55.230Z",
+              "labels": [],
+              "checklist": [
+                {
+                  "id": "0173a642-4703-46ee-98cd-ffd3bb930e54",
+                  "text": "b4, 1+2 -14",
+                  "completed": false
+                },
+                {
+                  "id": "1db92933-a6ab-4d0c-995b-c97805e2f3e7",
+                  "text": "AOP 2,1 -12",
+                  "completed": false
+                },
+                {
+                  "id": "9cba5ef9-f6f5-45f5-8af4-2f78edf1345f",
+                  "text": "3 > -11",
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "id": "4f5d0dc5-b802-412b-920d-c6c4ae7ee752",
+              "title": "Lili",
+              "description": "",
+              "createdAt": "2025-01-15T03:31:33.252Z",
+              "labels": [],
+              "checklist": [
+                {
+                  "id": "577bc7b4-666d-44ab-8a17-37da36d48ec6",
+                  "text": "b4 ob",
+                  "completed": false
+                },
+                {
+                  "id": "24f3c06e-020c-4d4c-bf07-2bbc46afcf6c",
+                  "text": "lili hs ob",
+                  "completed": false
+                },
+                {
+                  "id": "d4c7bf68-22d6-402c-bade-dee69823dce8",
+                  "text": "df3 ob",
+                  "completed": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "d9ecb18b-6b6e-47a4-a377-3391d52d75fd",
+          "title": "Drill",
+          "cards": [
+            {
+              "id": "bc959a26-5e79-4105-9a36-c5746a145dc7",
+              "title": "Whiff drill",
+              "description": "- set cpu to block and punish \n- record a jab or fast recovery move and a slow recovery move \n- react to the jab with a jab or df1 punish \n- react to the bigger whiff with a launch ",
+              "createdAt": "2025-07-13T04:48:39.237Z",
+              "labels": [],
+              "checklist": []
+            },
+            {
+              "id": "e3f44674-4f5b-4049-a6ca-7ea429eccf89",
+              "title": "Advanced whiff drill",
+              "description": "Situational drill to create awareness of different options to go for \n\nEx: Zafina b1+2 > BD > launch a whiff \nLaunch \n\nZafina f3 > scr2,1 heat guaranteed or f1+2 \n\n- record a specific barrage of actions that create chip damage \n- end it with a planned whiff sequence and use heat engager\n- record a similar barrage but none to little chip and launch ",
+              "createdAt": "2025-07-13T05:05:17.827Z",
+              "labels": [],
+              "checklist": []
+            },
+            {
+              "id": "b5f4704d-cd64-4dd0-af5b-2c54aa066952",
+              "title": "Grab/reaction drill",
+              "description": "- set cpu to block and punish with plus frame to command grab and a 20-22 frame low \n- do a safe move and break grabs block low \n- extra: set CPU to pressure > low > pressure > command grab OR low \n\nThis adds complexity if you miss the low to keep defending after ",
+              "createdAt": "2025-07-13T04:47:03.357Z",
+              "labels": [],
+              "checklist": []
+            },
+            {
+              "id": "e664706a-14ef-4b55-b777-deba79e49a7c",
+              "title": "Advanced reaction drill",
+              "description": "- set cpu to block and punish with 1 jab into grabs/ command grabs \n- do a minus move and mash a jab so you get ch/interrupted by the jab \n- break the throw \n- add in string or low or problem move after jab \n- ex: jab to drag db3+4 or some mid high string ",
+              "createdAt": "2025-07-13T04:43:35.079Z",
+              "labels": [],
+              "checklist": []
+            },
+            {
+              "id": "988c0bfe-0c57-44ae-892d-fcbb999619b4",
+              "title": "Zafina lab drills",
+              "description": "Discover the viability of Zafina’s moves in s2. \n\nToken is huge; what moves bring the token? \n\nWhat was season 1 Zafina good at? \n- power crush ability in heat \n- simple frame traps and chip damage at the wall\n",
+              "createdAt": "2025-07-13T14:36:56.319Z",
+              "labels": [],
+              "checklist": [
+                {
+                  "id": "791b5eb9-5683-4534-bccc-6b85692ca49c",
+                  "text": "Whats most important in tekken 8?",
+                  "completed": false
+                },
+                {
+                  "id": "ec6fb475-bfdb-444e-b52d-dd39151f89c5",
+                  "text": "What’s most important for Zafina (token?)",
+                  "completed": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "currentBoard": null
+}
