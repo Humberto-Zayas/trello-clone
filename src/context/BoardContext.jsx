@@ -10,10 +10,23 @@ const initialState = {
   currentBoard: null,
 };
 
+function validateState(data) {
+  if (!data || typeof data !== 'object') return false;
+  if (!Array.isArray(data.boards)) return false;
+  return true;
+}
+
 function loadFromStorage() {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : initialState;
+    if (!data) return initialState;
+
+    const parsed = JSON.parse(data);
+    if (!validateState(parsed)) {
+      console.warn('Invalid localStorage data, using defaults');
+      return initialState;
+    }
+    return parsed;
   } catch {
     return initialState;
   }
@@ -356,6 +369,10 @@ export function BoardProvider({ children }) {
     reader.onload = (e) => {
       try {
         const data = JSON.parse(e.target.result);
+        if (!validateState(data)) {
+          alert('Invalid data format: missing or invalid boards array');
+          return;
+        }
         dispatch({ type: 'LOAD_DATA', payload: data });
         saveToStorage(data);
       } catch (err) {
