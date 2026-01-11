@@ -215,6 +215,20 @@ function boardReducer(state, action) {
       };
       break;
 
+    case 'MOVE_LIST':
+      const { boardId: bid, sourceIndex: srcIdx, destIndex: dstIdx } = action.payload;
+      newState = {
+        ...state,
+        boards: state.boards.map(b => {
+          if (b.id !== bid) return b;
+          const newLists = [...b.lists];
+          const [movedList] = newLists.splice(srcIdx, 1);
+          newLists.splice(dstIdx, 0, movedList);
+          return { ...b, lists: newLists };
+        }),
+      };
+      break;
+
     case 'ADD_CHECKLIST_ITEM':
       newState = {
         ...state,

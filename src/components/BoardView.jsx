@@ -11,6 +11,7 @@ export default function BoardView({ boardId, onBack }) {
   const [boardTitle, setBoardTitle] = useState('');
   const [selectedCard, setSelectedCard] = useState(null);
   const [draggedCard, setDraggedCard] = useState(null);
+  const [draggedList, setDraggedList] = useState(null);
 
   const board = state.boards.find(b => b.id === boardId);
 
@@ -65,9 +66,38 @@ export default function BoardView({ boardId, onBack }) {
     }
   };
 
-  const openCard = (card, listId) => {
-    setSelectedCard({ ...card, listId });
+  const handleListDragStart = (index) => {
+    setDraggedList(index);
   };
+
+  const handleListDrop = (destIndex) => {
+    if (draggedList !== null && draggedList !== destIndex) {
+      dispatch({
+        type: 'MOVE_LIST',
+        payload: {
+          boardId,
+          sourceIndex: draggedList,
+          destIndex,
+        },
+      });
+    }
+    setDraggedList(null);
+  };
+
+  const openCard = (card, listId) => {
+    setSelectedCard({ cardId: card.id, listId });
+  };
+
+  // Look up current card from state to ensure fresh data
+  const getSelectedCard = () => {
+    if (!selectedCard) return null;
+    const list = board.lists.find(l => l.id === selectedCard.listId);
+    if (!list) return null;
+    const card = list.cards.find(c => c.id === selectedCard.cardId);
+    return card ? { ...card, listId: selectedCard.listId } : null;
+  };
+
+  const currentCard = getSelectedCard();
 
   return (
     <div className="board-view">
@@ -93,15 +123,19 @@ export default function BoardView({ boardId, onBack }) {
       </header>
 
       <div className="lists-container">
-        {board.lists.map(list => (
+        {board.lists.map((list, index) => (
           <List
             key={list.id}
             list={list}
+            index={index}
             boardId={boardId}
             onCardClick={openCard}
             onDragStart={handleDragStart}
             onDrop={handleDrop}
             isDragging={draggedCard !== null}
+            onListDragStart={handleListDragStart}
+            onListDrop={handleListDrop}
+            isListDragging={draggedList !== null}
           />
         ))}
 
@@ -137,11 +171,11 @@ export default function BoardView({ boardId, onBack }) {
         </div>
       </div>
 
-      {selectedCard && (
+      {currentCard && (
         <CardModal
-          card={selectedCard}
+          card={currentCard}
           boardId={boardId}
-          listId={selectedCard.listId}
+          listId={currentCard.listId}
           onClose={() => setSelectedCard(null)}
         />
       )}

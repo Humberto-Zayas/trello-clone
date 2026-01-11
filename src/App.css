@@ -240,6 +240,17 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px;
+  cursor: grab;
+}
+
+.list-header:active {
+  cursor: grabbing;
+}
+
+.list-drop-target {
+  outline: 2px dashed #0079bf;
+  outline-offset: -2px;
+  background: #d0e4f5;
 }
 
 .list-title {

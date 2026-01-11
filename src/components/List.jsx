@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useBoard } from '../context/BoardContext';
 import Card from './Card';
 
-export default function List({ list, boardId, onCardClick, onDragStart, onDrop, isDragging }) {
+export default function List({ list, index, boardId, onCardClick, onDragStart, onDrop, isDragging, onListDragStart, onListDrop, isListDragging }) {
   const { dispatch } = useBoard();
   const [newCardTitle, setNewCardTitle] = useState('');
   const [showCardForm, setShowCardForm] = useState(false);
   const [editingTitle, setEditingTitle] = useState(false);
   const [listTitle, setListTitle] = useState('');
   const [dropIndex, setDropIndex] = useState(null);
+  const [listDropTarget, setListDropTarget] = useState(false);
 
   const handleAddCard = (e) => {
     e.preventDefault();
@@ -58,9 +59,49 @@ export default function List({ list, boardId, onCardClick, onDragStart, onDrop, 
     setDropIndex(null);
   };
 
+  const handleListDragStart = (e) => {
+    e.dataTransfer.setData('text/list', index.toString());
+    e.dataTransfer.effectAllowed = 'move';
+    onListDragStart(index);
+  };
+
+  const handleListDragEnd = () => {
+    setListDropTarget(false);
+  };
+
+  const handleListDragOver = (e) => {
+    if (!isListDragging) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setListDropTarget(true);
+  };
+
+  const handleListDragLeave = (e) => {
+    if (e.currentTarget.contains(e.relatedTarget)) return;
+    setListDropTarget(false);
+  };
+
+  const handleListDrop = (e) => {
+    if (!isListDragging) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setListDropTarget(false);
+    onListDrop(index);
+  };
+
   return (
-    <div className="list">
-      <div className="list-header">
+    <div
+      className={`list${listDropTarget ? ' list-drop-target' : ''}`}
+      onDragOver={handleListDragOver}
+      onDragLeave={handleListDragLeave}
+      onDrop={handleListDrop}
+    >
+      <div
+        className="list-header"
+        draggable={!editingTitle}
+        onDragStart={handleListDragStart}
+        onDragEnd={handleListDragEnd}
+      >
         {editingTitle ? (
           <input
             type="text"
