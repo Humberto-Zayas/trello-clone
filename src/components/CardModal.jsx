@@ -15,6 +15,8 @@ export default function CardModal({ card, boardId, listId, onClose }) {
   const [title, setTitle] = useState(card.title);
   const [description, setDescription] = useState(card.description);
   const [newChecklistItem, setNewChecklistItem] = useState('');
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [editingItemText, setEditingItemText] = useState('');
 
   const handleTitleBlur = () => {
     if (title.trim() && title !== card.title) {
@@ -57,6 +59,22 @@ export default function CardModal({ card, boardId, listId, onClose }) {
       type: 'DELETE_CHECKLIST_ITEM',
       payload: { boardId, listId, cardId: card.id, itemId },
     });
+  };
+
+  const handleEditChecklistItem = (item) => {
+    setEditingItemId(item.id);
+    setEditingItemText(item.text);
+  };
+
+  const handleSaveChecklistItem = () => {
+    if (editingItemText.trim() && editingItemId) {
+      dispatch({
+        type: 'UPDATE_CHECKLIST_ITEM',
+        payload: { boardId, listId, cardId: card.id, itemId: editingItemId, text: editingItemText.trim() },
+      });
+    }
+    setEditingItemId(null);
+    setEditingItemText('');
   };
 
   const handleToggleLabel = (label) => {
@@ -148,9 +166,24 @@ export default function CardModal({ card, boardId, listId, onClose }) {
                     checked={item.completed}
                     onChange={() => handleToggleChecklistItem(item.id)}
                   />
-                  <span className={item.completed ? 'completed' : ''}>
-                    {item.text}
-                  </span>
+                  {editingItemId === item.id ? (
+                    <input
+                      type="text"
+                      value={editingItemText}
+                      onChange={(e) => setEditingItemText(e.target.value)}
+                      onBlur={handleSaveChecklistItem}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSaveChecklistItem()}
+                      className="checklist-item-input"
+                      autoFocus
+                    />
+                  ) : (
+                    <span
+                      className={item.completed ? 'completed' : ''}
+                      onClick={() => handleEditChecklistItem(item)}
+                    >
+                      {item.text}
+                    </span>
+                  )}
                   <button
                     className="delete-btn small"
                     onClick={() => handleDeleteChecklistItem(item.id)}

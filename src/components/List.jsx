@@ -160,6 +160,16 @@ export default function List({ list, index, boardId, onCardClick, onDragStart, o
                 e.preventDefault();
                 handleAddCard(e);
               }
+              if (e.key === 'Escape') {
+                setShowCardForm(false);
+                setNewCardTitle('');
+              }
+            }}
+            onBlur={(e) => {
+              if (!e.currentTarget.form.contains(e.relatedTarget)) {
+                setShowCardForm(false);
+                setNewCardTitle('');
+              }
             }}
             placeholder="Enter card title..."
             autoFocus

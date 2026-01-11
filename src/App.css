@@ -601,11 +601,26 @@ body {
   flex: 1;
   font-size: 14px;
   color: #172b4d;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.checklist-item span:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .checklist-item span.completed {
   text-decoration: line-through;
   color: #5e6c84;
+}
+
+.checklist-item-input {
+  flex: 1;
+  font-size: 14px;
+  padding: 4px 8px;
+  border: 2px solid #0079bf;
+  border-radius: 4px;
 }
 
 .add-checklist-form {

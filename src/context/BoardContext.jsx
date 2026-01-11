@@ -321,6 +321,38 @@ function boardReducer(state, action) {
       };
       break;
 
+    case 'UPDATE_CHECKLIST_ITEM':
+      newState = {
+        ...state,
+        boards: state.boards.map(b =>
+          b.id === action.payload.boardId
+            ? {
+                ...b,
+                lists: b.lists.map(l =>
+                  l.id === action.payload.listId
+                    ? {
+                        ...l,
+                        cards: l.cards.map(c =>
+                          c.id === action.payload.cardId
+                            ? {
+                                ...c,
+                                checklist: c.checklist.map(item =>
+                                  item.id === action.payload.itemId
+                                    ? { ...item, text: action.payload.text }
+                                    : item
+                                ),
+                              }
+                            : c
+                        ),
+                      }
+                    : l
+                ),
+              }
+            : b
+        ),
+      };
+      break;
+
     case 'TOGGLE_LABEL':
       newState = {
         ...state,
