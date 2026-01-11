@@ -229,6 +229,14 @@ function boardReducer(state, action) {
       };
       break;
 
+    case 'MOVE_BOARD':
+      const { sourceIndex: boardSrcIdx, destIndex: boardDstIdx } = action.payload;
+      const newBoards = [...state.boards];
+      const [movedBoard] = newBoards.splice(boardSrcIdx, 1);
+      newBoards.splice(boardDstIdx, 0, movedBoard);
+      newState = { ...state, boards: newBoards };
+      break;
+
     case 'ADD_CHECKLIST_ITEM':
       newState = {
         ...state,

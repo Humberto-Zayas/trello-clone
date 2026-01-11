@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useBoard } from '../context/BoardContext';
+import RichTextEditor from './RichTextEditor';
+import RichTextDisplay from './RichTextDisplay';
 
 const LABELS = [
   { name: 'red', color: '#ef4444' },
@@ -17,6 +19,7 @@ export default function CardModal({ card, boardId, listId, onClose }) {
   const [newChecklistItem, setNewChecklistItem] = useState('');
   const [editingItemId, setEditingItemId] = useState(null);
   const [editingItemText, setEditingItemText] = useState('');
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
 
   const handleTitleBlur = () => {
     if (title.trim() && title !== card.title) {
@@ -34,6 +37,7 @@ export default function CardModal({ card, boardId, listId, onClose }) {
         payload: { boardId, listId, cardId: card.id, updates: { description } },
       });
     }
+    setIsEditingDescription(false);
   };
 
   const handleAddChecklistItem = (e) => {
@@ -135,14 +139,20 @@ export default function CardModal({ card, boardId, listId, onClose }) {
 
           <section className="modal-section">
             <h4>Description</h4>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              onBlur={handleDescriptionBlur}
-              placeholder="Add a description..."
-              rows={4}
-              className="description-input"
-            />
+            {isEditingDescription ? (
+              <RichTextEditor
+                content={description}
+                onChange={setDescription}
+                onBlur={handleDescriptionBlur}
+                placeholder="Add a description..."
+              />
+            ) : (
+              <RichTextDisplay
+                content={description}
+                onClick={() => setIsEditingDescription(true)}
+                placeholder="Add a description..."
+              />
+            )}
           </section>
 
           <section className="modal-section">

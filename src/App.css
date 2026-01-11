@@ -129,6 +129,15 @@ body {
   opacity: 1;
 }
 
+.board-card.dragging {
+  opacity: 0.5;
+}
+
+.board-card.drag-over {
+  outline: 2px dashed #0079bf;
+  outline-offset: -2px;
+}
+
 .board-card.new-board {
   background: rgba(255, 255, 255, 0.3);
   display: flex;
@@ -646,4 +655,239 @@ body {
   padding: 0 20px 20px;
   display: flex;
   justify-content: flex-end;
+}
+
+/* Rich Text Editor */
+.rich-text-editor {
+  border: 2px solid #dfe1e6;
+  border-radius: 4px;
+  background: white;
+  overflow: hidden;
+}
+
+.rich-text-editor:focus-within {
+  border-color: #0079bf;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: #f4f5f7;
+  border-bottom: 1px solid #dfe1e6;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: #dfe1e6;
+  margin: 0 4px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #172b4d;
+  font-size: 14px;
+}
+
+.toolbar-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.toolbar-btn.active {
+  background: #e4f0f6;
+  color: #0079bf;
+}
+
+.toolbar-btn svg {
+  display: block;
+}
+
+.heading-dropdown {
+  position: relative;
+}
+
+.heading-trigger {
+  width: auto;
+  padding: 0 8px;
+  gap: 4px;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+.heading-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  min-width: 120px;
+}
+
+.heading-option {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #172b4d;
+}
+
+.heading-option:hover {
+  background: #f4f5f7;
+}
+
+.heading-option.active {
+  background: #e4f0f6;
+  color: #0079bf;
+}
+
+.editor-content-wrapper {
+  position: relative;
+  min-height: 100px;
+}
+
+.editor-content-wrapper .ProseMirror {
+  padding: 12px;
+  min-height: 100px;
+  outline: none;
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: #a5adba;
+  pointer-events: none;
+}
+
+/* Rich Text Display */
+.rich-text-display {
+  min-height: 60px;
+  padding: 12px;
+  background: white;
+  border: 2px solid #dfe1e6;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.rich-text-display:hover {
+  border-color: #0079bf;
+  background: #fafbfc;
+}
+
+.display-placeholder {
+  color: #a5adba;
+  font-style: italic;
+}
+
+/* Prose Typography */
+.prose {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #172b4d;
+}
+
+.prose h1 {
+  font-size: 1.75em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose h5 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose h6 {
+  font-size: 0.9em;
+  font-weight: 600;
+  margin: 0.5em 0;
+}
+
+.prose p {
+  margin: 0.5em 0;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose s {
+  text-decoration: line-through;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.prose li {
+  margin: 0.25em 0;
+}
+
+.prose a {
+  color: #0079bf;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #026aa7;
 }

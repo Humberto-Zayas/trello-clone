@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useBoard } from '../context/BoardContext';
 
 export default function BoardList({ onSelectBoard }) {
   const { state, dispatch, exportData, importData } = useBoard();
   const [newBoardTitle, setNewBoardTitle] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const draggedBoardIdx = useRef(null);
+  const [dragOverIdx, setDragOverIdx] = useState(null);
 
   const handleAddBoard = (e) => {
     e.preventDefault();
@@ -30,6 +32,35 @@ export default function BoardList({ onSelectBoard }) {
     }
   };
 
+  const handleDragStart = (e, index) => {
+    draggedBoardIdx.current = index;
+    e.dataTransfer.effectAllowed = 'move';
+    e.currentTarget.classList.add('dragging');
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.classList.remove('dragging');
+    draggedBoardIdx.current = null;
+    setDragOverIdx(null);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (draggedBoardIdx.current === null || draggedBoardIdx.current === index) return;
+    setDragOverIdx(index);
+  };
+
+  const handleDrop = (e, index) => {
+    e.preventDefault();
+    if (draggedBoardIdx.current === null || draggedBoardIdx.current === index) return;
+    dispatch({
+      type: 'MOVE_BOARD',
+      payload: { sourceIndex: draggedBoardIdx.current, destIndex: index },
+    });
+    draggedBoardIdx.current = null;
+    setDragOverIdx(null);
+  };
+
   return (
     <div className="board-list-container">
       <header className="board-list-header">
@@ -46,11 +77,16 @@ export default function BoardList({ onSelectBoard }) {
       </header>
 
       <div className="boards-grid">
-        {state.boards.map(board => (
+        {state.boards.map((board, index) => (
           <div
             key={board.id}
-            className="board-card"
+            className={`board-card${dragOverIdx === index ? ' drag-over' : ''}`}
             onClick={() => onSelectBoard(board.id)}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDragEnd={handleDragEnd}
+            onDragOver={(e) => handleDragOver(e, index)}
+            onDrop={(e) => handleDrop(e, index)}
           >
             <h3>{board.title}</h3>
             <p>{board.lists.length} list{board.lists.length !== 1 ? 's' : ''}</p>
