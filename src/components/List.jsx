@@ -114,6 +114,12 @@ export default function List({ list, boardId, onCardClick, onDragStart, onDrop, 
           <textarea
             value={newCardTitle}
             onChange={(e) => setNewCardTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleAddCard(e);
+              }
+            }}
             placeholder="Enter card title..."
             autoFocus
             rows={3}
