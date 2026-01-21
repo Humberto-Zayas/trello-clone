@@ -12,6 +12,66 @@ const LABELS = [
   { name: 'purple', color: '#a855f7' },
 ];
 
+function stripHtml(html) {
+  if (!html) return '';
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.textContent || '';
+}
+
+function exportCardAsJson(card) {
+  const data = {
+    title: card.title,
+    description: stripHtml(card.description),
+    descriptionHtml: card.description,
+    labels: card.labels,
+    checklist: card.checklist.map(item => ({
+      text: item.text,
+      completed: item.completed,
+    })),
+    createdAt: card.createdAt,
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${card.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportCardAsMarkdown(card) {
+  let md = `# ${card.title}\n\n`;
+
+  if (card.labels.length > 0) {
+    md += `**Labels:** ${card.labels.join(', ')}\n\n`;
+  }
+
+  if (card.description) {
+    md += `## Description\n\n${stripHtml(card.description)}\n\n`;
+  }
+
+  if (card.checklist.length > 0) {
+    md += `## Checklist\n\n`;
+    card.checklist.forEach(item => {
+      const checkbox = item.completed ? '[x]' : '[ ]';
+      md += `- ${checkbox} ${item.text}\n`;
+    });
+    md += '\n';
+  }
+
+  if (card.createdAt) {
+    md += `---\n*Created: ${new Date(card.createdAt).toLocaleString()}*\n`;
+  }
+
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${card.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function CardModal({ card, boardId, listId, onClose }) {
   const { dispatch } = useBoard();
   const [title, setTitle] = useState(card.title);
@@ -216,6 +276,14 @@ export default function CardModal({ card, boardId, listId, onClose }) {
         </div>
 
         <div className="modal-footer">
+          <div className="export-buttons">
+            <button className="btn btn-secondary" onClick={() => exportCardAsJson(card)}>
+              Export JSON
+            </button>
+            <button className="btn btn-secondary" onClick={() => exportCardAsMarkdown(card)}>
+              Export MD
+            </button>
+          </div>
           <button className="btn btn-danger" onClick={handleDeleteCard}>
             Delete Card
           </button>
