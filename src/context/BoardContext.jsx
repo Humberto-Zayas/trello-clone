@@ -16,6 +16,72 @@ function validateState(data) {
   return true;
 }
 
+function isTrelloExport(data) {
+  return (
+    data &&
+    typeof data === 'object' &&
+    typeof data.name === 'string' &&
+    Array.isArray(data.lists) &&
+    Array.isArray(data.cards) &&
+    !Array.isArray(data.boards)
+  );
+}
+
+function convertTrelloExport(data) {
+  const labelById = {};
+  for (const label of data.labels || []) {
+    labelById[label.id] = label.color;
+  }
+
+  const checklistsByCardId = {};
+  for (const cl of data.checklists || []) {
+    if (!checklistsByCardId[cl.idCard]) checklistsByCardId[cl.idCard] = [];
+    for (const item of cl.checkItems || []) {
+      checklistsByCardId[cl.idCard].push({
+        id: uuidv4(),
+        text: item.name,
+        completed: item.state === 'complete',
+      });
+    }
+  }
+
+  const openLists = (data.lists || [])
+    .filter((l) => !l.closed)
+    .sort((a, b) => a.pos - b.pos);
+
+  const cardsByListId = {};
+  for (const card of data.cards || []) {
+    if (card.closed) continue;
+    if (!cardsByListId[card.idList]) cardsByListId[card.idList] = [];
+    cardsByListId[card.idList].push(card);
+  }
+  for (const listId of Object.keys(cardsByListId)) {
+    cardsByListId[listId].sort((a, b) => a.pos - b.pos);
+  }
+
+  const lists = openLists.map((list) => ({
+    id: uuidv4(),
+    title: list.name,
+    cards: (cardsByListId[list.id] || []).map((card) => ({
+      id: uuidv4(),
+      title: card.name,
+      description: card.desc || '',
+      createdAt: card.dateLastActivity || new Date().toISOString(),
+      labels: (card.idLabels || []).map((lid) => labelById[lid]).filter(Boolean),
+      checklist: checklistsByCardId[card.id] || [],
+    })),
+  }));
+
+  const board = {
+    id: uuidv4(),
+    title: data.name,
+    createdAt: new Date().toISOString(),
+    lists,
+  };
+
+  return { boards: [board], currentBoard: null };
+}
+
 function loadFromStorage() {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
@@ -42,6 +108,12 @@ function boardReducer(state, action) {
   switch (action.type) {
     case 'LOAD_DATA':
       return action.payload;
+
+    case 'MERGE_BOARDS':
+      return {
+        ...state,
+        boards: [...state.boards, ...action.payload.boards],
+      };
 
     case 'ADD_BOARD':
       newState = {
@@ -422,13 +494,16 @@ export function BoardProvider({ children }) {
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const data = JSON.parse(e.target.result);
+        let data = JSON.parse(e.target.result);
+        if (isTrelloExport(data)) {
+          data = convertTrelloExport(data);
+        }
         if (!validateState(data)) {
           alert('Invalid data format: missing or invalid boards array');
           return;
         }
-        dispatch({ type: 'LOAD_DATA', payload: data });
-        saveToStorage(data);
+        dispatch({ type: 'MERGE_BOARDS', payload: data });
+        saveToStorage({ ...state, boards: [...state.boards, ...data.boards] });
       } catch (err) {
         alert('Invalid file format');
       }
