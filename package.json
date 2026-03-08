@@ -1,7 +1,11 @@
 {
   "name": "trello-clone",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/trello-clone"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
