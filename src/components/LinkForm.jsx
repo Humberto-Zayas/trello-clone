@@ -16,8 +16,8 @@ function LinkForm({ link, onSave, onCancel }) {
 
   const validateUrl = (urlString) => {
     try {
-      new URL(urlString);
-      return true;
+      const parsed = new URL(urlString);
+      return parsed.protocol === 'https:' || parsed.protocol === 'http:';
     } catch {
       return false;
     }

@@ -14,6 +14,16 @@ export default function EditorToolbar({ editor }) {
     if (url === '') {
       editor.chain().focus().extendMarkRange('link').unsetLink().run();
     } else {
+      try {
+        const parsed = new URL(url);
+        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+          alert('Only http:// and https:// links are allowed.');
+          return;
+        }
+      } catch {
+        alert('Please enter a valid URL (e.g., https://example.com)');
+        return;
+      }
       editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
     }
   };
