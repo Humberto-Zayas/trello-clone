@@ -23,6 +23,7 @@ A fully-featured, open-source Kanban board built with React 19 and Vite. No back
 - **Export all data** — downloads the full app state as a JSON backup file
 - **Import app backup** — load a previously exported JSON file; boards are merged (not overwritten)
 - **Import from Trello** — paste in a native Trello board JSON export and it converts automatically: lists, cards, checklists, labels, and card descriptions all come through
+- **Auto-backup to folder** (Chrome/Edge only) — click "Set backup folder" on the dashboard to pick a local folder; the app then silently writes `trello-backup.json` to that folder on every change. Folder permission is remembered across sessions via IndexedDB. To restore, use Import and select the file from your backup folder.
 
 ### Link Manager
 - Slide-out drawer (🔗 button) to save, search, and filter bookmarks
@@ -31,7 +32,8 @@ A fully-featured, open-source Kanban board built with React 19 and Vite. No back
 
 ### Data & Privacy
 - All data is stored **only in your browser's localStorage** — nothing is sent anywhere
-- Two storage keys: `trello-clone-data` (boards) and `trello-clone-links` (links)
+- Two localStorage keys: `trello-clone-data` (boards) and `trello-clone-links` (links)
+- The auto-backup folder handle is stored in **IndexedDB** (browser-local, never leaves your machine)
 
 ---
 
@@ -86,6 +88,8 @@ src/
 ├── context/
 │   ├── BoardContext.jsx      # Board state (useReducer) + localStorage persistence
 │   └── LinksContext.jsx      # Links state (useReducer) + localStorage persistence
+├── hooks/
+│   └── useBackup.js          # File System Access API auto-backup (IndexedDB handle persistence)
 └── components/
     ├── BoardList.jsx         # Dashboard: grid of boards with drag/drop + import/export
     ├── BoardView.jsx         # Single board: lists, drag/drop orchestration
@@ -165,7 +169,7 @@ This app has no backend, database, or account system. All board and link data is
 - **Data does not survive a fresh browser profile or incognito session.** Incognito/private windows start with empty storage every time.
 - **Reinstalling your OS or browser can wipe localStorage.** Always export a backup before doing anything that might affect browser data.
 
-> **Tip:** Use the **Export** button regularly to download a JSON backup. You can re-import it at any time to restore your boards.
+> **Tip:** Use **Set backup folder** (Chrome/Edge) to automatically save `trello-backup.json` to a local folder on every change — no manual steps needed. On other browsers, use the **Export** button regularly and keep the file somewhere safe. You can re-import it at any time to restore your boards.
 
 ### No media attachments
 Cards support rich text descriptions (bold, italic, headings, lists, links) but do **not** support:
