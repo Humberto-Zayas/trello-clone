@@ -85,7 +85,32 @@ body {
 
 .header-actions {
   display: flex;
+  align-items: center;
   gap: 12px;
+}
+
+.backup-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: white;
+}
+
+.backup-info {
+  white-space: nowrap;
+}
+
+.backup-time {
+  opacity: 0.8;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
 }
 
 .boards-grid {

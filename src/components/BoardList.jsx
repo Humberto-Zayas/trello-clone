@@ -2,7 +2,8 @@ import { useState, useRef } from 'react';
 import { useBoard } from '../context/BoardContext';
 
 export default function BoardList({ onSelectBoard }) {
-  const { state, dispatch, exportData, importData } = useBoard();
+  const { state, dispatch, exportData, importData, autoBackup } = useBoard();
+  const { isSupported, hasFolder, folderName, lastSaved, setBackupFolder, clearBackupFolder } = autoBackup;
   const [newBoardTitle, setNewBoardTitle] = useState('');
   const [showForm, setShowForm] = useState(false);
   const draggedBoardIdx = useRef(null);
@@ -66,6 +67,27 @@ export default function BoardList({ onSelectBoard }) {
       <header className="board-list-header">
         <h1>My Boards</h1>
         <div className="header-actions">
+          {isSupported && (
+            <div className="backup-status">
+              {hasFolder ? (
+                <>
+                  <span className="backup-info">
+                    Auto-backup: <strong>{folderName}</strong>
+                    {lastSaved && (
+                      <span className="backup-time"> · Saved {lastSaved.toLocaleTimeString()}</span>
+                    )}
+                  </span>
+                  <button onClick={clearBackupFolder} className="btn btn-secondary btn-sm">
+                    Clear
+                  </button>
+                </>
+              ) : (
+                <button onClick={setBackupFolder} className="btn btn-secondary">
+                  Set backup folder
+                </button>
+              )}
+            </div>
+          )}
           <button onClick={exportData} className="btn btn-secondary">
             Export Data
           </button>

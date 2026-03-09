@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import { createContext, useContext, useReducer, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useBackup } from '../hooks/useBackup';
 
 const BoardContext = createContext();
 
@@ -473,11 +474,20 @@ function boardReducer(state, action) {
 
 export function BoardProvider({ children }) {
   const [state, dispatch] = useReducer(boardReducer, initialState);
+  const { isSupported, hasFolder, folderName, lastSaved, setBackupFolder, backup, clearBackupFolder } = useBackup();
+  const loadedRef = useRef(false);
 
   useEffect(() => {
     const savedData = loadFromStorage();
     dispatch({ type: 'LOAD_DATA', payload: savedData });
+    loadedRef.current = true;
   }, []);
+
+  // Auto-backup whenever state changes, but only after initial load
+  useEffect(() => {
+    if (!loadedRef.current) return;
+    backup(state);
+  }, [state, backup]);
 
   const exportData = () => {
     const dataStr = JSON.stringify(state, null, 2);
@@ -512,7 +522,10 @@ export function BoardProvider({ children }) {
   };
 
   return (
-    <BoardContext.Provider value={{ state, dispatch, exportData, importData }}>
+    <BoardContext.Provider value={{
+      state, dispatch, exportData, importData,
+      autoBackup: { isSupported, hasFolder, folderName, lastSaved, setBackupFolder, clearBackupFolder },
+    }}>
       {children}
     </BoardContext.Provider>
   );
